@@ -13,7 +13,12 @@
 
 #include "Menu_opciones.h"
 #include "Inputs.h"
-#include "Abm.h"
+#include "eFecha.h"
+#include "eAerolinea.h"
+#include "eTipo.h"
+#include "eAvion.h"
+#include "eDestino.h"
+#include "eVuelo.h"
 
 #define TAM_AEROLINEAS 5
 #define TAM_TIPO 4
@@ -66,42 +71,28 @@ int main(void) {
 	};
 
 
-	int inicializarAvion(eAvion vec[], int tam);
+	inicializarAvion(listaAviones, TAM_AVION);
 
 	do{
 
 		opcionIngresada = menuOpciones("\n --------MENÚ PRINCIPAL--------\n \n",
-					" 1) ALTA AVIÓN\n 2) MODIFICAR AVION\n 3) BAJA AVIÓN\n 4) LISTAR AVIONES\n 5)LISTAR AEROLINEAS\n 6) LISTAR TIPOS\n 7) LISTAR DESTINOS 8)ALTA VUELO\n 9) LISTAR VUELOS\n 10) SALIR DEL PROGRAMA \n \n ============================= \n \n");
+					" 1) ALTA AVIÓN\n 2) MODIFICAR AVION\n 3) BAJA AVIÓN\n 4) LISTAR AVIONES\n 5)LISTAR AEROLINEAS\n 6) LISTAR TIPOS\n 7) LISTAR DESTINOS\n 8)ALTA VUELO\n 9) LISTAR VUELOS\n 10) SALIR DEL PROGRAMA \n \n ============================= \n \n");
 
 		switch(opcionIngresada)
 		{
 		case 1:
-			if(altaAvion(&proximoIdAvion, listaAviones, TAM_AVION, listaAerolineas,
-					TAM_AEROLINEAS, listaTipo, TAM_TIPO)== 1)
+			if(altaAvion(&proximoIdAvion, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO)== 1)
 			{
-				puts("¡Alta cargada exitosamente!\n");
+				puts("\n¡Alta cargada exitosamente!\n");
 				flagAltaHecha = 1;
 			}else
 			{
 
-				puts("ERROR: no se pudo realizar la carga del alta del usuario.\n");
+				puts("ERROR: no se pudo realizar la carga del alta del avión.\n");
 			}
 			break;
 		case 2:
 
-			if(flagAltaHecha == 1){
-
-					if(modificarAvion(listaAviones,TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO) == 1)
-					{
-						puts("Modificacion exitosa");
-					}else{
-						puts("ERROR: No se pudo realizar la modificacion");
-					}
-					}else{
-
-						puts("Ha ocurrido un error. Deben existir altas cargadas para poder realizar una modificación de usuario.");
-
-					}
 
 
 
@@ -110,17 +101,6 @@ int main(void) {
 
 
 
-			if(flagAltaHecha == 1){
-
-					if(bajaAvion(listaAviones,TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO) == 1)
-					{
-						puts("Baja exitosa");
-					}else{
-						puts("ERROR: No se pudo realizar la baja");
-					}
-					}else{
-						puts("Ha ocurrido un error. Deben existir altas cargadas para poder realizar una baja de usuario.");
-					}
 
 
 
@@ -128,18 +108,24 @@ int main(void) {
 					break;
 		case 4:
 
+			mostrarTodosAviones(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+
 
 					break;
 		case 5:
 
-			mostrarAerolinea(listaAerolineas, TAM_AEROLINEAS);
+			mostrarTodasAerolineas(listaAerolineas, TAM_AEROLINEAS);
+
+
 					break;
 		case 6:
 
-			     mostrarTipo(listaTipo, TAM_TIPO);
+			mostrarTodosTipos(listaTipo, TAM_TIPO);
+
+
 					break;
 		case 7:
-			mostrarDestino(listaDestino, TAM_DESTINO);
+
 					break;
 		case 8:
 					break;
@@ -164,7 +150,7 @@ int main(void) {
 		}
 
 
-	}while(opcionIngresada != 10 && confirmacion != 's' );
+	}while(opcionIngresada != 10 || confirmacion != 's' );
 
 
 
