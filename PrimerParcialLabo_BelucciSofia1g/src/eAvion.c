@@ -278,3 +278,57 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 
 }
 
+
+
+int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+	int todoOk = 0;
+	int id;
+	int indice;
+	char confirma = 'n';
+
+	if (aviones != NULL && tamAviones > 0) {
+
+		printf("\n\n--------BAJA DEL AVIÓN-------- \n \n ");
+
+
+		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos);
+
+		utn_getNumeroInt(&id, "Ingrese el ID del avión a dar de baja:  ", "ERROR", 0, 10000, 100);
+
+
+			buscarAvion(id, &indice, aviones, tamAviones);
+
+
+		if (indice == OCUPADO) {
+
+			do{
+			printf("No existe un avión con ese id %d \n", id);
+
+			}while(!buscarAvion(id, *indice, aviones, tamAviones));
+
+
+		} else {
+
+
+			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+			utn_getChar(&confirma, "¿Está seguro que desea dar de baja este avión?: n = NO / s = SI:  ", "Ocurrio un ERROR", 100);
+
+			if (confirma != 's') {
+
+				puts("Se ha cancelado la baja");
+
+			} else {
+
+				aviones[indice].isEmpty = LIBRE;
+				printf("¡Baja de avión exitosa!");
+
+			}
+
+		}
+
+		todoOk = 1;
+	}
+
+	return todoOk;
+}
+

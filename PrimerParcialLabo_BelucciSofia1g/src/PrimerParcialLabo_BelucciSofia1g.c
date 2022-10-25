@@ -24,18 +24,20 @@
 #define TAM_TIPO 4
 #define TAM_DESTINO 4
 #define TAM_AVION 5
+#define TAM_VUELOS 5
 
 
 int main(void) {
 	setbuf(stdout, NULL);
 
 	eAvion listaAviones[TAM_AVION];
+	//eVuelo listaVuelos[TAM_VUELOS];
 
 	int opcionIngresada;
 	char confirmacion = 'n';
 	int proximoIdAvion = 1000;
 
-	int flagAltaHecha = 0;
+//	int flagAltaHecha = 0;
 
 
 
@@ -84,7 +86,7 @@ int main(void) {
 			if(altaAvion(&proximoIdAvion, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO)== 1)
 			{
 				puts("\n¡Alta cargada exitosamente!\n");
-				flagAltaHecha = 1;
+			//	flagAltaHecha = 1;
 			}else
 			{
 
@@ -101,6 +103,10 @@ int main(void) {
 
 					break;
 		case 3:
+
+
+
+			bajaAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
 
 
 
