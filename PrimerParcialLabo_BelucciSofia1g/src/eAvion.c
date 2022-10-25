@@ -155,3 +155,126 @@ void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas
 	}
 
 }
+
+int buscarAvion(int id, int *pIndice, eAvion aviones[], int tamAviones) {
+
+	int todoOk = 0;
+	int indice = OCUPADO;
+
+	if (pIndice != NULL && aviones != NULL && tamAviones > 0) {
+		*pIndice = OCUPADO;
+
+		for (int i = 0; i < tamAviones; i++) {
+			if (!aviones[i].isEmpty == VACIO && aviones[i].id == id) {
+
+				indice = i;
+				break;
+			}
+
+		}
+		*pIndice = indice;
+
+		todoOk = 1;
+	}
+
+	return todoOk;
+
+}
+
+
+
+int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+
+	int todoOk = 0;
+	int id;
+	int indice;
+	char confirma = 'n';
+	int opcionSeleccionada;
+
+
+
+	eAvion auxAvion;
+
+	if (aviones != NULL && tamAviones > 0) {
+
+		puts("--------------MODIFICACIÓN DE AVIONES-----------------");
+
+
+		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos);
+
+		utn_getNumeroInt(&id, "Ingrese el id del Avión a modificar:  ", "ERROR", 0, 10000, 100);
+
+
+		buscarAvion(id, &indice, aviones, tamAviones);
+
+
+		if (indice == OCUPADO) {
+			printf("No existe una avión con ese ID %d \n", id);
+
+		} else {
+
+
+			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+
+			auxAvion = aviones[indice];
+
+			do {
+				opcionSeleccionada =
+						menuOpciones("******MODIFICACION ABM********\n\n",
+								"¿Qué dato desea modificar? \n 1) MODIFICAR TIPO DEL AVIÓN\n 2) MODIFICAR CAPACIDAD DEL AVIÓN\n 3) VOLVER AL MENÚ PRINCIPAL \n \n ============================= \n \n");
+
+				switch (opcionSeleccionada) {
+				case 1:
+
+					puts("Usted eligió modificar: TIPO DE AVIÓN\n");
+					mostrarTodosTipos(tipos, tamTipos);
+					utn_getNumeroInt(&auxAvion.idTipo, "Ingrese el nuevo ID del tipo de avión deseado:   ", "ERROR. Debe ingresar un ID válido.", 0, 999999, 1000);
+					while(!validarIdTipos(auxAvion.idTipo, tipos, tamTipos))
+														{
+															mostrarTodosTipos(tipos, tamTipos);
+
+															utn_getNumeroInt(&auxAvion.idTipo, "ERROR. Ingrese un ID de tipo de avión válido: ", "Reingresar un número válido de ID.", 1, 10000000, 999);
+
+
+														}
+
+					break;
+				case 2:
+					puts("Usted eligió modificar: CAPACIDAD DEL AVIÓN\n");
+					utn_getNumeroInt(&auxAvion.capacidad, "Ingrese la nueva capacidad del avión (entre 10 y 300 personas):  ", "ERROR al ingresar la capacidad del avión.", 10, 300, 100);
+					break;
+
+				case 3:
+
+
+					mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+					utn_getChar(&confirma, "¿Está seguro que desea modificar este dato? n = NO / s = SI : ", "Ocurrio un ERROR", 100);
+
+					if (confirma == 's') {
+
+						aviones[indice] = auxAvion;
+						puts("¡MODIFICACION EXITOSA!");
+
+						puts("Volviendo al Menú Principal del ABM...\n \n");
+						todoOk = 1;
+					} else {
+						puts("Se ha cancelado la modificacion");
+					}
+
+					break;
+				default:
+					puts(
+							"\n ERROR: La opción es incorrecta. Ingrese nuevamente otro número \n");
+					break;
+
+				}
+			} while (opcionSeleccionada != 3);
+
+		}
+
+	}
+
+	return todoOk;
+
+}
+

@@ -40,7 +40,7 @@ int cargarDescripcionAerolinea(eAerolinea aerolineas[], int tamAerolineas,
 	int todoOk = 0;
 	int flag = 1;
 
-	if (aerolineas != NULL & tamAerolineas > 0 && descripcionAerolinea != NULL) {
+	if ((aerolineas != NULL && tamAerolineas > 0) && descripcionAerolinea != NULL) {
 
 		todoOk = 1;
 		for (int i = 0; i < tamAerolineas; i++) {

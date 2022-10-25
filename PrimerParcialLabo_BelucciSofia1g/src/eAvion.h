@@ -41,5 +41,7 @@ int buscarIndiceLibreAvion(int *pIndice, eAvion aviones[], int tamAvion);
 int altaAvion(int *pIndice, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos);
 void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
 void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
+int buscarAvion(int id, int *pIndice, eAvion aviones[], int tamAviones);
+int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
 
 #endif /* EAVION_H_ */

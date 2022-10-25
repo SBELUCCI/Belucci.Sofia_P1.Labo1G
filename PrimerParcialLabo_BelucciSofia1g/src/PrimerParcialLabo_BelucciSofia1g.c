@@ -94,6 +94,9 @@ int main(void) {
 		case 2:
 
 
+			modificarAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+
+
 
 
 					break;
@@ -125,6 +128,9 @@ int main(void) {
 
 					break;
 		case 7:
+
+
+			mostrarTodosDestinos(listaDestino, TAM_DESTINO);
 
 					break;
 		case 8:
