@@ -197,7 +197,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 
 	if (aviones != NULL && tamAviones > 0) {
 
-		puts("--------------MODIFICACIÓN DE AVIONES-----------------");
+		puts("\n\n--------------MODIFICACIÓN DE AVIONES-----------------");
 
 
 		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos);
@@ -208,8 +208,12 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 		buscarAvion(id, &indice, aviones, tamAviones);
 
 
+
 		if (indice == OCUPADO) {
-			printf("No existe una avión con ese ID %d \n", id);
+
+
+			printf("No existe un avión con ese ID %d \n", id);
+
 
 		} else {
 
@@ -220,7 +224,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 
 			do {
 				opcionSeleccionada =
-						menuOpciones("******MODIFICACION ABM********\n\n",
+						menuOpciones("\n\n******MODIFICACION ABM********\n\n",
 								"¿Qué dato desea modificar? \n 1) MODIFICAR TIPO DEL AVIÓN\n 2) MODIFICAR CAPACIDAD DEL AVIÓN\n 3) VOLVER AL MENÚ PRINCIPAL \n \n ============================= \n \n");
 
 				switch (opcionSeleccionada) {
@@ -299,12 +303,13 @@ int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tam
 			buscarAvion(id, &indice, aviones, tamAviones);
 
 
+
 		if (indice == OCUPADO) {
 
-			do{
-			printf("No existe un avión con ese id %d \n", id);
 
-			}while(!buscarAvion(id, *indice, aviones, tamAviones));
+			printf("No existe un avión con ese ID %d \n", id);
+
+
 
 
 		} else {
@@ -323,6 +328,8 @@ int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tam
 				printf("¡Baja de avión exitosa!");
 
 			}
+
+
 
 		}
 
