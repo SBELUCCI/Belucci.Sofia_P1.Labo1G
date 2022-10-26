@@ -339,3 +339,23 @@ int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tam
 	return todoOk;
 }
 
+int validarIdAvion(int id, eAvion aviones[], int tamAviones) {
+	int esValido = 0;
+
+	if (aviones != NULL && tamAviones > 0) {
+		for (int i = 0; i < tamAviones; i++) {
+			if (aviones[i].id == id) {
+
+				esValido = 1;
+				break;
+
+			}
+
+		}
+
+	}
+
+	return esValido;
+}
+
+

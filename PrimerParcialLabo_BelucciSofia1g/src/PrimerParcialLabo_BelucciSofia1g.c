@@ -31,11 +31,12 @@ int main(void) {
 	setbuf(stdout, NULL);
 
 	eAvion listaAviones[TAM_AVION];
-	//eVuelo listaVuelos[TAM_VUELOS];
+	eVuelo listaVuelos[TAM_VUELOS];
 
 	int opcionIngresada;
 	char confirmacion = 'n';
 	int proximoIdAvion = 1000;
+	int proximoIdVuelo = 100;
 
 //	int flagAltaHecha = 0;
 
@@ -74,6 +75,7 @@ int main(void) {
 
 
 	inicializarAvion(listaAviones, TAM_AVION);
+	inicializarVuelo(listaVuelos, TAM_VUELOS);
 
 	do{
 
@@ -141,9 +143,20 @@ int main(void) {
 					break;
 		case 8:
 
+			if(altaVuelo(&proximoIdVuelo, listaVuelos, TAM_VUELOS, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO, listaDestino, TAM_DESTINO)== 1)
+			{
+				puts("\n¡Alta cargada exitosamente!\n");
+
+			}else{
+
+				puts("ERROR: no se pudo realizar la carga del alta del avión.\n");
+			}
+
 
 					break;
 		case 9:
+
+			mostrarTodosVuelos(listaVuelos, TAM_VUELOS, listaAviones, TAM_AVION, listaDestino, TAM_DESTINO, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
 					break;
 		case 10:
 
