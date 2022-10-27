@@ -45,4 +45,7 @@ int buscarAvion(int id, int *pIndice, eAvion aviones[], int tamAviones);
 int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
 int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
 int validarIdAvion(int id, eAvion aviones[], int tamAviones);
+int cargarCapacidadAvion(eAvion aviones[], int tamAviones,
+		int idAviones, int* capacidadAvion);
+int ordenarAviones(eAvion aviones[], int tamAviones);
 #endif /* EAVION_H_ */

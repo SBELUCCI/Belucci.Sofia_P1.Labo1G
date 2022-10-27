@@ -84,3 +84,35 @@ int cargarDescripcionDestino(eDestino destinos[], int tamDestinos,
 	return todoOk;
 
 }
+
+
+int cargarPreciosDestino(eDestino destinos[], int tamDestinos,
+		int idDestinos, float* precioDestino) {
+	int todoOk = 0;
+	int flag = 1;
+
+	if ((destinos != NULL && tamDestinos > 0) && precioDestino > 0) {
+
+		todoOk = 1;
+		for (int i = 0; i < tamDestinos; i++) {
+			if (destinos[i].id == idDestinos) {
+
+				*precioDestino = destinos[i].precio;
+
+				flag = 0;
+				break;
+
+			}
+
+		}
+
+		if (flag) {
+			todoOk = -1;
+		}
+	}
+
+	return todoOk;
+
+}
+
+

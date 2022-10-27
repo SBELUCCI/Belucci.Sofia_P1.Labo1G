@@ -38,7 +38,7 @@ int main(void) {
 	int proximoIdAvion = 1000;
 	int proximoIdVuelo = 100;
 
-//	int flagAltaHecha = 0;
+	int flagAltaAvionHecha = 0;
 
 
 
@@ -80,7 +80,7 @@ int main(void) {
 	do{
 
 		opcionIngresada = menuOpciones("\n --------MENÚ PRINCIPAL--------\n \n",
-					" 1) ALTA AVIÓN\n 2) MODIFICAR AVION\n 3) BAJA AVIÓN\n 4) LISTAR AVIONES\n 5)LISTAR AEROLINEAS\n 6) LISTAR TIPOS\n 7) LISTAR DESTINOS\n 8)ALTA VUELO\n 9) LISTAR VUELOS\n 10) SALIR DEL PROGRAMA \n \n ============================= \n \n");
+					" 1) ALTA AVIÓN\n 2) MODIFICAR AVION\n 3) BAJA AVIÓN\n 4) LISTAR AVIONES\n 5) LISTAR AEROLINEAS\n 6) LISTAR TIPOS\n 7) LISTAR DESTINOS\n 8) ALTA VUELO\n 9) LISTAR VUELOS\n 10) SALIR DEL PROGRAMA \n \n ============================= \n \n");
 
 		switch(opcionIngresada)
 		{
@@ -88,7 +88,7 @@ int main(void) {
 			if(altaAvion(&proximoIdAvion, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO)== 1)
 			{
 				puts("\n¡Alta cargada exitosamente!\n");
-			//	flagAltaHecha = 1;
+				flagAltaAvionHecha = 1;
 			}else
 			{
 
@@ -98,7 +98,22 @@ int main(void) {
 		case 2:
 
 
-			modificarAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+
+
+
+			if(flagAltaAvionHecha== 1){
+
+					if(modificarAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO) == 1)
+					{
+						puts("\n\n");
+					}else{
+						puts("ERROR: No se pudo realizar la modificacion");
+					}
+					}else{
+
+						puts("ERROR: Deben existir altas de avión cargadas para poder realizar una modificación de avión.");
+
+					}
 
 
 
@@ -107,8 +122,21 @@ int main(void) {
 		case 3:
 
 
+			if(flagAltaAvionHecha == 1){
 
-			bajaAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+			if(bajaAvion(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO) == 1)
+			{
+				puts("\n \n");
+			}else{
+				puts("ERROR: No se pudo realizar la baja");
+			}
+			}else{
+				puts("ERROR: Deben existir altas cargadas para poder realizar una baja de avión.");
+			}
+
+
+
+
 
 
 
@@ -118,8 +146,13 @@ int main(void) {
 
 					break;
 		case 4:
-
+			if(flagAltaAvionHecha == 1)
+			{
 			mostrarTodosAviones(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+			}else
+			{
+				puts("ERROR: Deben existir altas cargadas para poder mostrar los aviones ingresados.");
+			}
 
 
 					break;
@@ -162,7 +195,7 @@ int main(void) {
 
 			utn_getChar(&confirmacion, "\n ¿Está seguro que desea salir del programa? s: SI / n: NO = ","ERROR", 100);
 
-								if (confirmacion == 's') {
+								if(confirmacion == 's') {
 									puts("\n ¡Gracias por utilizar nuestro servicio!");
 								}
 					break;

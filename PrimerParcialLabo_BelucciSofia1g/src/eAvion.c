@@ -148,7 +148,9 @@ void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas
 			if (aviones[i].isEmpty == OCUPADO) {
 
 				mostrarUnAvion(aviones[i], aerolineas, tamAerolinea, tipos, tamTipos);
+
 			}
+		//	ordenarAviones(aviones, tamAviones); poner en el main
 
 		}
 
@@ -356,6 +358,71 @@ int validarIdAvion(int id, eAvion aviones[], int tamAviones) {
 	}
 
 	return esValido;
+}
+
+
+int cargarCapacidadAvion(eAvion aviones[], int tamAviones,
+		int idAviones, int* capacidadAvion) {
+	int todoOk = 0;
+	int flag = 1;
+
+	if ((aviones != NULL && tamAviones > 0) && capacidadAvion > 0) {
+
+		todoOk = 1;
+		for (int i = 0; i < tamAviones; i++) {
+			if (aviones[i].id == idAviones) {
+
+				*capacidadAvion = aviones[i].capacidad;
+
+				flag = 0;
+				break;
+
+			}
+
+		}
+
+		if (flag) {
+			todoOk = -1;
+		}
+	}
+
+	return todoOk;
+
+}
+
+
+
+int ordenarAviones(eAvion aviones[], int tamAviones)
+{
+	int todoOk = 0;
+	eAvion auxAvion;
+
+	if(aviones != NULL && tamAviones > 0)
+	{
+
+		for(int i = 0; i < tamAviones - 1; i++)
+		{
+			for(int j = i + 1; j < tamAviones; j++)
+			{
+				if((aviones[i].idAerolinea > aviones[j].idAerolinea) || (aviones[i].idAerolinea == aviones[j].idAerolinea && aviones[i].capacidad > aviones[j].capacidad))
+
+				{
+
+					auxAvion = aviones[i];
+					aviones[i] = aviones[j];
+					aviones[j] = auxAvion;
+				}
+
+
+
+			}
+		}
+
+		todoOk = 1;
+	}
+
+
+	return todoOk;
 }
 
 
