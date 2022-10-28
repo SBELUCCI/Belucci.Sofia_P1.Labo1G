@@ -40,7 +40,7 @@ int cargarDescripcionTipo(eTipo tipos[], int tamTipos,
 	int todoOk = 0;
 	int flag = 1;
 
-	if (tipos != NULL & tamTipos > 0 && descripcionTipos != NULL) {
+	if (tipos != NULL && tamTipos > 0 && descripcionTipos != NULL) {
 
 		todoOk = 1;
 		for (int i = 0; i < tamTipos; i++) {

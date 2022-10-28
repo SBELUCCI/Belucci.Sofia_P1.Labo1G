@@ -39,6 +39,7 @@ int main(void) {
 	int proximoIdVuelo = 100;
 
 	int flagAltaAvionHecha = 0;
+	int flagAltaVueloHecho = 0;
 
 
 
@@ -148,6 +149,7 @@ int main(void) {
 		case 4:
 			if(flagAltaAvionHecha == 1)
 			{
+				ordenarAviones(listaAviones, TAM_AVION);
 			mostrarTodosAviones(listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
 			}else
 			{
@@ -176,20 +178,25 @@ int main(void) {
 					break;
 		case 8:
 
-			if(altaVuelo(&proximoIdVuelo, listaVuelos, TAM_VUELOS, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO, listaDestino, TAM_DESTINO)== 1)
+			if(flagAltaAvionHecha == 1 && altaVuelo(&proximoIdVuelo, listaVuelos, TAM_VUELOS, listaAviones, TAM_AVION, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO, listaDestino, TAM_DESTINO)== 1)
 			{
 				puts("\n¡Alta cargada exitosamente!\n");
 
 			}else{
 
-				puts("ERROR: no se pudo realizar la carga del alta del avión.\n");
+				puts("ERROR: no se pudo realizar la carga del alta del vuelo.\n");
 			}
 
 
 					break;
 		case 9:
-
+			if(flagAltaVueloHecho == 1)
+			{
 			mostrarTodosVuelos(listaVuelos, TAM_VUELOS, listaAviones, TAM_AVION, listaDestino, TAM_DESTINO, listaAerolineas, TAM_AEROLINEAS, listaTipo, TAM_TIPO);
+			}else
+			{
+				puts("ERROR: Deben haber altas de vuelos cargadas en el sistema.\n");
+			}
 					break;
 		case 10:
 

@@ -51,13 +51,13 @@ int buscarIndiceLibreAvion(int *pIndice, eAvion aviones[], int tamAvion) {
 
 }
 
-int altaAvion(int *pIndice, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos) {
+int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos) {
 	int todoOk = 0;
 	int indice;
 	eAvion auxAvion;
 
 
-	if (pIndice != NULL && aviones != NULL && tamAvion > 0) {
+	if (pId != NULL && aviones != NULL && tamAvion > 0) {
 
 		buscarIndiceLibreAvion(&indice, aviones, tamAvion);
 
@@ -67,7 +67,7 @@ int altaAvion(int *pIndice, eAvion aviones[], int tamAvion, eAerolinea aerolinea
 
 			puts("No hay lugar en el sistema para realizar el alta.\n \n");
 		} else {
-			auxAvion.id = *pIndice;
+			auxAvion.id = *pId;
 
 			mostrarTodasAerolineas(aerolineas, tamAerolineas);
 
@@ -107,7 +107,7 @@ int altaAvion(int *pIndice, eAvion aviones[], int tamAvion, eAerolinea aerolinea
 			auxAvion.isEmpty = OCUPADO;
 
 			aviones[indice] = auxAvion;
-			(*pIndice)++;
+			(*pId)++;
 
 
 		}
