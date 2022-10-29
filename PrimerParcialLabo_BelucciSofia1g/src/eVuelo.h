@@ -67,7 +67,7 @@ int buscarIndiceLibreVuelos(int *pIndice, eVuelo vuelos[], int tamVuelos);
 /// @param destinos Recibe el array de destinos de su estructura para trabajar con estos datos.
 /// @param tamDestinos Es el tamaño máximo permitido de destinos.
 /// @return retorna 1 en caso de exito, sino 0 si ocurre un error.
-int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, eDestino destinos[], int tamDestinos);
+int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, eDestino destinos[], int tamDestinos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Se encarga de mostrar solamente un vuelo
 ///
@@ -80,7 +80,7 @@ int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[], int ta
 /// @param tamAerolineas Es el tamaño máximo permitido de aerolíneas.
 /// @param tipos Recibe el array de tipos de aviones de su estructura para trabajar con estos datos.
 /// @param tamTipos  Es el tamaño máximo permitido de tipos de aviones.
-void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones, eDestino destinos[], int tamDestinos, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos);
+void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones, eDestino destinos[], int tamDestinos, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 
 /// @brief Se encarga de mostrar todos los vuelos ingresados por el usuario
@@ -95,6 +95,6 @@ void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones, eDestino des
 /// @param tamAerolineas Es el tamaño máximo permitido de aerolíneas.
 /// @param tipos Recibe el array de tipos de aviones de su estructura para trabajar con estos datos.
 /// @param tamTipos Es el tamaño máximo permitido de tipos de aviones.
-void mostrarTodosVuelos(eVuelo vuelos[],int tamVuelos, eAvion aviones[], int tamAviones, eDestino destinos[], int tamDestinos, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos);
+void mostrarTodosVuelos(eVuelo vuelos[],int tamVuelos, eAvion aviones[], int tamAviones, eDestino destinos[], int tamDestinos, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 #endif /* EVUELO_H_ */

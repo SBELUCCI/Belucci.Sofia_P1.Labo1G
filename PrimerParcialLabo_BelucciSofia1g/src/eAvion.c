@@ -51,7 +51,7 @@ int buscarIndiceLibreAvion(int *pIndice, eAvion aviones[], int tamAvion) {
 
 }
 
-int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos) {
+int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 	int todoOk = 0;
 	int indice;
 	eAvion auxAvion;
@@ -104,6 +104,19 @@ int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[],
 
 			utn_getNumeroInt(&auxAvion.capacidad, "Ingrese la capacidad del avión (entre 10 y 300 personas):  ", "ERROR al ingresar la capacidad del avión.", 10, 300, 100);
 
+
+			mostrarTodosPilotos(pilotos, tamPilotos);
+
+			utn_getNumeroInt(&auxAvion.idPiloto, "Ingrese el ID del piloto que desea:  ", "ERROR: reingrese un ID de piloto válido:  ", 0, 100, 100);
+
+			while(!validarIdPiloto(auxAvion.idPiloto, pilotos, tamPilotos))
+			{
+				mostrarTodosPilotos(pilotos, tamPilotos);
+
+				utn_getNumeroInt(&auxAvion.idPiloto, "Ingrese el ID del piloto que desea:  ", "ERROR: reingrese un ID de piloto válido:  ", 0, 100, 100);
+
+			}
+
 			auxAvion.isEmpty = OCUPADO;
 
 			aviones[indice] = auxAvion;
@@ -119,35 +132,37 @@ int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[],
 
 }
 
-void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 
 	char descripcionAerolineas[20];
 	char descripcionTipos[20];
+	char descripcionPilotos[30];
 
 
 	cargarDescripcionAerolinea(aerolineas, tamAerolinea,
 			avion.idAerolinea, descripcionAerolineas);
 	cargarDescripcionTipo(tipos, tamTipos, avion.idTipo, descripcionTipos);
+	cargarDescripcionPiloto(pilotos, tamPilotos, avion.idPiloto, descripcionPilotos);
 
-	printf("| %d | %-20s | %-20s | %d | \n", avion.id, descripcionAerolineas,
-			descripcionTipos, avion.capacidad);
+	printf("| %d | %-20s | %-20s | %d |  %-10s \n", avion.id, descripcionAerolineas,
+			descripcionTipos, avion.capacidad, descripcionPilotos);
 	puts("_______________________________________________");
 
 }
 
-void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 	if (aviones != NULL && tamAviones > 0) {
 		puts("\n\n===============================================");
 		puts("----------LISTA DE AVIONES INGRESADOS----------");
 		puts("===============================================");
 		puts(
-				"| ID |    AEROLINEA    | TIPO DE AVIÓN | CAPACIDAD DEL AVIÓN |");
+				"| ID |    AEROLINEA    | TIPO DE AVIÓN | CAPACIDAD DEL AVIÓN |  NOMBRE DEL PILOTO  |");
 		puts("===============================================");
 
 		for (int i = 0; i < tamAviones; i++) {
 			if (aviones[i].isEmpty == OCUPADO) {
 
-				mostrarUnAvion(aviones[i], aerolineas, tamAerolinea, tipos, tamTipos);
+				mostrarUnAvion(aviones[i], aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 
 			}
 		//	ordenarAviones(aviones, tamAviones); poner en el main
@@ -185,7 +200,7 @@ int buscarAvion(int id, int *pIndice, eAvion aviones[], int tamAviones) {
 
 
 
-int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 
 	int todoOk = 0;
 	int id;
@@ -202,7 +217,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 		puts("\n\n--------------MODIFICACIÓN DE AVIONES-----------------");
 
 
-		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos);
+		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 
 		utn_getNumeroInt(&id, "Ingrese el id del Avión a modificar:  ", "ERROR", 0, 10000, 100);
 
@@ -220,14 +235,14 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 		} else {
 
 
-			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 
 			auxAvion = aviones[indice];
 
 			do {
 				opcionSeleccionada =
 						menuOpciones("\n\n******MODIFICACION ABM********\n\n",
-								"¿Qué dato desea modificar? \n 1) MODIFICAR TIPO DEL AVIÓN\n 2) MODIFICAR CAPACIDAD DEL AVIÓN\n 3) VOLVER AL MENÚ PRINCIPAL \n \n ============================= \n \n");
+								"¿Qué dato desea modificar? \n 1) MODIFICAR TIPO DEL AVIÓN\n 2) MODIFICAR CAPACIDAD DEL AVIÓN\n 3) NOMBRE DEL PILOTO\n 4) VOLVER AL MENÚ PRINCIPAL \n \n ============================= \n \n");
 
 				switch (opcionSeleccionada) {
 				case 1:
@@ -250,10 +265,29 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 					utn_getNumeroInt(&auxAvion.capacidad, "Ingrese la nueva capacidad del avión (entre 10 y 300 personas):  ", "ERROR al ingresar la capacidad del avión.", 10, 300, 100);
 					break;
 
+
 				case 3:
+					puts("Usted eligió modificar: NOMBRE DEL PILOTO DEL AVIÓN\n");
+
+					mostrarTodosPilotos(pilotos, tamPilotos);
+					utn_getNumeroInt(&auxAvion.idPiloto, "Ingrese el nuevo ID del piloto deseado:  ", "ERROR: ingrese un ID de piloto valido:  ", 0, 100, 100);
+
+					while(!validarIdPiloto(auxAvion.idPiloto, pilotos, tamPilotos))
+					{
+
+						mostrarTodosPilotos(pilotos, tamPilotos);
+						utn_getNumeroInt(&auxAvion.idPiloto, "Ingrese el nuevo ID del piloto deseado:  ", "ERROR: ingrese un ID de piloto valido:  ", 0, 100, 100);
+
+					}
 
 
-					mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+
+					break;
+
+				case 4:
+
+
+					mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 					utn_getChar(&confirma, "¿Está seguro que desea modificar este dato? n = NO / s = SI : ", "Ocurrio un ERROR", 100);
 
 					if (confirma == 's') {
@@ -274,7 +308,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 					break;
 
 				}
-			} while (opcionSeleccionada != 3);
+			} while (opcionSeleccionada != 4);
 
 		}
 
@@ -286,7 +320,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 
 
 
-int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos) {
+int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 	int todoOk = 0;
 	int id;
 	int indice;
@@ -297,7 +331,7 @@ int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tam
 		printf("\n\n--------BAJA DEL AVIÓN-------- \n \n ");
 
 
-		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos);
+		mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 
 		utn_getNumeroInt(&id, "Ingrese el ID del avión a dar de baja:  ", "ERROR", 0, 10000, 100);
 
@@ -317,7 +351,7 @@ int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tam
 		} else {
 
 
-			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos);
+			mostrarUnAvion(aviones[indice], aerolineas, tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 			utn_getChar(&confirma, "¿Está seguro que desea dar de baja este avión?: n = NO / s = SI:  ", "Ocurrio un ERROR", 100);
 
 			if (confirma != 's') {

@@ -51,7 +51,7 @@ int buscarIndiceLibreVuelos(int *pIndice, eVuelo vuelos[], int tamVuelos) {
 
 int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[],
 		int tamAviones, eAerolinea aerolineas[], int tamAerolinea,
-		eTipo tipos[], int tamTipos, eDestino destinos[], int tamDestinos) {
+		eTipo tipos[], int tamTipos, eDestino destinos[], int tamDestinos, ePiloto pilotos[], int tamPilotos ) {
 	int todoOk = 0;
 	int indice;
 	eVuelo auxVuelo;
@@ -67,14 +67,14 @@ int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[],
 			auxVuelo.id = *pId;
 
 			mostrarTodosAviones(aviones, tamAviones, aerolineas, tamAerolinea,
-					tipos, tamTipos);
+					tipos, tamTipos, pilotos, tamPilotos);
 			utn_getNumeroInt(&auxVuelo.idAvion,
 					"Ingrese el ID del avión deseado:  ",
 					"ERROR: ingrese un ID de avión válido", 0, 99999, 100);
 
 			while (!validarIdAvion(auxVuelo.idAvion, aviones, tamAviones)) {
 				mostrarTodosAviones(aviones, tamAviones, aerolineas,
-						tamAerolinea, tipos, tamTipos);
+						tamAerolinea, tipos, tamTipos, pilotos, tamPilotos);
 				utn_getNumeroInt(&auxVuelo.idAvion,
 						"ERROR: Ingrese el ID del avión deseado:  ",
 						"ERROR: ingrese un ID de avión válido ", 0, 99999, 100);
@@ -124,16 +124,18 @@ int altaVuelo(int *pId, eVuelo vuelos[], int tamVuelos, eAvion aviones[],
 
 void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones,
 		eDestino destinos[], int tamDestinos, eAerolinea aerolineas[],
-		int tamAerolineas, eTipo tipos[], int tamTipos) {
+		int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 
 	char descripcionAerolineas[20];
 	char descripcionTipos[20];
 	char descripcionDestinos[20];
+	char descripcionPilotos[30];
 	int capacidadAvion;
 	float preciosDestino;
 
 	eAvion auxTest;
 	int auxIdTipo;
+
 
 	for(int i = 0; i<tamAviones;i++){
 		if(aviones[i].id == vuelo.idAvion){
@@ -145,17 +147,20 @@ void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones,
 			auxIdTipo = tipos[i].id;
 		}
 	}
+
 	cargarDescripcionAerolinea(aerolineas, tamAerolineas,
 			auxTest.idAerolinea, descripcionAerolineas);
 	cargarDescripcionTipo(tipos, tamTipos, auxIdTipo, descripcionTipos);
+
+	cargarDescripcionPiloto(pilotos, tamPilotos, auxTest.idPiloto, descripcionPilotos);
 	cargarCapacidadAvion(aviones, tamAviones, vuelo.idAvion, &capacidadAvion);
 	cargarDescripcionDestino(destinos, tamDestinos, vuelo.idDestino,
 			descripcionDestinos);
 	cargarPreciosDestino(destinos, tamDestinos, vuelo.idDestino,
 			&preciosDestino);
 
-	printf("| %d | %-20s | %-20s | %d | %-20s  | %.2f  | %02d/%02d/%02d |\n",
-			vuelo.id, descripcionAerolineas, descripcionTipos, capacidadAvion,
+	printf("| %d | %-20s | %-20s | %d |  %-10s     | %-20s  | %.2f  | %02d/%02d/%02d |\n",
+			vuelo.id, descripcionAerolineas, descripcionTipos, capacidadAvion, descripcionPilotos,
 			descripcionDestinos, preciosDestino, vuelo.fechaVuelo.dia,
 			vuelo.fechaVuelo.mes, vuelo.fechaVuelo.anio);
 	puts("_______________________________________________");
@@ -164,21 +169,21 @@ void mostrarUnVuelo(eVuelo vuelo, eAvion aviones[], int tamAviones,
 
 void mostrarTodosVuelos(eVuelo vuelos[], int tamVuelos, eAvion aviones[],
 		int tamAviones, eDestino destinos[], int tamDestinos,
-		eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos) {
+		eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos) {
 	if (aviones != NULL && tamAviones > 0) {
-		puts("\n\n===============================================");
-		puts("----------LISTA DE DESTINOS----------");
-		puts("===============================================");
+		puts("\n\n====================================================================================================================");
+		puts("====================================----------LISTA DE DESTINOS----------===============================================");
+		puts("========================================================================================================================");
 		puts(
-				"| ID |    AEROLINEA    | TIPO DE AVIÓN | CAPACIDAD DEL AVIÓN |  DESTINOS  |   PRECIO DE VUELO  |    FECHA DE VUELO  |");
-		puts("===============================================");
+				"| ID |    AEROLINEA    | TIPO DE AVIÓN | CAPACIDAD DEL AVIÓN |     NOMBRE DEL PILOTO    |  DESTINOS  |   PRECIO DE VUELO  |    FECHA DE VUELO  |");
+		puts("========================================================================================================================");
 
 		for (int i = 0; i < tamVuelos; i++) {
 			if (vuelos[i].isEmpty == OCUPADO) {
 
 				mostrarUnVuelo(vuelos[i], aviones, tamAviones, destinos,
 						tamDestinos, aerolineas, tamAerolineas, tipos,
-						tamTipos);
+						tamTipos, pilotos, tamPilotos);
 
 			}
 

@@ -17,6 +17,7 @@
 #include "Menu_opciones.h"
 #include "eAerolinea.h"
 #include "eTipo.h"
+#include "ePiloto.h"
 
 #define LIBRE 1
 #define VACIO 0
@@ -29,6 +30,7 @@ typedef struct {
 	int idAerolinea;
 	int idTipo;
 	int capacidad;
+	int idPiloto;
 	int isEmpty;
 
 
@@ -60,7 +62,7 @@ int buscarIndiceLibreAvion(int *pIndice, eAvion aviones[], int tamAvion);
 /// @param tipos Recibe un array de tipos de aviones
 /// @param tamTipos Recibe el tamaño máximo de tipos de aviones
 /// @return retorna 1 en caso de exito, sino 0 si ocurre un error.
-int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos);
+int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[], int tamAerolineas, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Se encarga de mostrar un solo avión
 ///
@@ -69,7 +71,7 @@ int altaAvion(int *pId, eAvion aviones[], int tamAvion, eAerolinea aerolineas[],
 /// @param tamAerolinea recibe el tamaño máximo del array de aerolineas
 /// @param tipos Recibe un array de tipos de aviones
 /// @param tamTipos Recibe un tamaño maximo de tipos de aviones
-void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
+void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Se encarga de mostrar TODOS los aviones ingresados por el usuario.
 ///
@@ -79,7 +81,7 @@ void mostrarUnAvion(eAvion avion, eAerolinea aerolineas[], int tamAerolinea, eTi
 /// @param tamAerolinea Es el tamaño maximo del array de aerolineas.
 /// @param tipos Recibe un array de tipos de aviones
 /// @param tamTipos es el tamaño del array de tipos de aviones.
-void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
+void mostrarTodosAviones(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Se encarga de buscar el ID del avión, si el mismo es exitente
 ///
@@ -99,7 +101,7 @@ int buscarAvion(int id, int *pIndice, eAvion aviones[], int tamAviones);
 /// @param tipos Recibe el array de tipos de aviones.
 /// @param tamTipos Recibe el tamaño maximo de array de tipos de aviones.
 /// @return retorna 1 en caso de exito, sino 0 en caso de error.
-int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
+int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Se encarga de realizar una baja lógica de un avión, el usuario ingresa el ID del avión a dar de baja.
 ///
@@ -110,7 +112,7 @@ int modificarAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], in
 /// @param tipos  Recibe un array de tipos de aviones
 /// @param tamTipos Es el tamaño maximo del array de tipos de aviones
 /// @return retorna 1 si salio bien, sino  0 en caso de error.
-int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos);
+int bajaAvion(eAvion aviones[], int tamAviones, eAerolinea aerolineas[], int tamAerolinea, eTipo tipos[], int tamTipos, ePiloto pilotos[], int tamPilotos);
 
 /// @brief Valida un ID existente de un avión
 ///
