@@ -260,6 +260,10 @@ int main(void) {
 				case 7:
 
 
+					puts("Volviendo al menu principal...");
+
+
+
 
 					break;
 				default:

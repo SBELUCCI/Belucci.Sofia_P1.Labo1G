@@ -383,7 +383,7 @@ int mostrarAerolineaMenorCantidadAviones(eAvion aviones[], int tamAviones, eAero
 					if(contadorAerolinea[i] == menorCantidadAviones)
 					{
 
-						printf("La aerolinea con menor cantidad de aviones es:  %s", aerolineas[i].descripcionAerolinea);
+						printf("La aerolinea con menor cantidad de aviones es:  %s \n", aerolineas[i].descripcionAerolinea);
 
 					}
 				}
